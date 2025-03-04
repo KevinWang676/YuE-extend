@@ -77,7 +77,7 @@ def post_process(
             instrumental_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{itrack_filename}.wav"), rescale, device, inst_decoder, codec_model)
         else:
             # Process vocal
-            vocal_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{vtrack_filename}.w"), rescale, device, vocal_decoder, codec_model)
+            vocal_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{vtrack_filename}.wav"), rescale, device, vocal_decoder, codec_model)
     # mix tracks
     try:
         mix_output = instrumental_output + vocal_output
