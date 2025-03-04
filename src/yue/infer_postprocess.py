@@ -44,13 +44,13 @@ def post_process(
         decoded_waveform = decoded_waveform.cpu().squeeze(0)
         decodec_rlt.append(torch.as_tensor(decoded_waveform))
         decodec_rlt = torch.cat(decodec_rlt, dim=-1)
-        save_path = os.path.join(recons_output_dir, os.path.splitext(os.path.basename(npy))[0] + ".mp3")
+        save_path = os.path.join(recons_output_dir, os.path.splitext(os.path.basename(npy))[0] + ".wav")
         tracks.append(save_path)
         save_audio(decodec_rlt, save_path, 16000)
     # mix tracks
     for inst_path in tracks:
         try:
-            if (inst_path.endswith(".wav") or inst_path.endswith(".mp3")) and "itrack" in inst_path:
+            if (inst_path.endswith(".wav") or inst_path.endswith(".wav")) and "itrack" in inst_path:
                 # find pair
                 vocal_path = inst_path.replace("itrack", "vtrack")
                 if not os.path.exists(vocal_path):
@@ -74,10 +74,10 @@ def post_process(
     for npy in stage2_result:
         if "itrack" in npy:
             # Process instrumental
-            instrumental_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{itrack_filename}.mp3"), rescale, device, inst_decoder, codec_model)
+            instrumental_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{itrack_filename}.wav"), rescale, device, inst_decoder, codec_model)
         else:
             # Process vocal
-            vocal_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{vtrack_filename}.mp3"), rescale, device, vocal_decoder, codec_model)
+            vocal_output = process_audio(npy, os.path.join(vocoder_stems_dir, f"{vtrack_filename}.w"), rescale, device, vocal_decoder, codec_model)
     # mix tracks
     try:
         mix_output = instrumental_output + vocal_output
