@@ -337,7 +337,7 @@ def generate_song(
 
     # Build base command with '-u' for unbuffered output
     cmd = [
-        "python", "-u", f"{BASE_YUE_DIR}/infer.py",  # Added '-u' here
+        "python3", "-u", f"{BASE_YUE_DIR}/infer.py",  # Added '-u' here
         "--stage1_use_exl2",
         "--stage1_model", f'"{stage1_model}"',
         "--stage1_cache_size", str(stage1_cache_size),
@@ -1126,4 +1126,4 @@ def build_gradio_interface():
 if __name__ == "__main__":
     interface = build_gradio_interface()
     # Adjust the port as needed
-    _, base_url, _ = interface.launch(server_name="127.0.0.1", server_port=7860, allowed_paths=["/workspace", ".", os.getcwd()])
+    _, base_url, _ = interface.launch(share=True, server_name="127.0.0.1", server_port=7860, allowed_paths=["/workspace", ".", os.getcwd()])
